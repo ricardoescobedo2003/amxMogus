@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Registro de Pago</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">WisPlus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro/index.html">Registrar Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/homePage/index.html">Historial de Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/consulta/consulta_pagos/index.html">Historial General</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/generarComprobante/index.html">Generar Comprobante</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/consulta/index.html">Mostrar Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/busquedaEdicion/index.html">Modificar Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientePlus/index.html">Confirmacion Pago</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/comparativa/index.html">Deudas Pendientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/recaudacion/index.html">Calcular Pagos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/axe/index.html">Admin</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ssh/index.html">Herramientas M5</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cv/cvPlus.html">Developer</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Formulario de Registro de Pago -->
+    <section class="payment-form">
+        <h2>Registrar Pago</h2>
+        <form id="paymentForm" action="process_payment.php" method="post">
+            <label for="clientes">Selecciona un cliente:</label>
+            <select id="clientes" name="clientes">
+                <!-- Options will be populated dynamically using JavaScript -->
+            </select>
+            <button type="submit">Registrar Pago</button>
+        </form>
+    </section>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 style="color: black;">Bienvenido a Tu Aplicación</h1>
+            <p style="color: black;">Encuentra aquí las herramientas que necesitas.</p>
+            <p style="color: black;">Wisp Manager Web por &copy; Escobedo 2024.</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <h2>¿Qué puedes hacer aquí?</h2>
+        <div class="feature-blocks">
+            <div class="feature">
+                <h3>Registrar Usuario</h3>
+                <p>Registra nuevos usuarios en el sistema.</p>
+            </div>
+            <div class="feature">
+                <h3>Historial de Cliente</h3>
+                <p>Consulta el historial de pagos de un cliente.</p>
+            </div>
+            <div class="feature">
+                <h3>Generar Comprobante</h3>
+                <p>Genera comprobantes de pago para tus clientes.</p>
+            </div>
+        </div>
+
+        <h2>Servicios que Ofrecemos</h2>
+        <div class="services">
+            <div class="service">
+                <h3>Servicio 1</h3>
+                <p>Creamos aplicaciones a medida del cliente</p>
+            </div>
+            <div class="service">
+                <h3>Servicio 2</h3>
+                <p>Podemos automatizar tareas repetitivas con python</p>
+            </div>
+            <div class="service">
+                <h3>Servicio 3</h3>
+                <p>Sabemos manejar muy bien GNU/Linux</p>
+            </div>
+        </div>
+
+        <h2>Testimonios de Clientes</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <blockquote>
+                    "Excelente servicio, ¡recomendado!"
+                </blockquote>
+                <p>- Cliente Satisfecho</p>
+            </div>
+            <div class="testimonial">
+                <blockquote>
+                    "Me ha facilitado mucho la gestión de pagos."
+                </blockquote>
+                <p>- Otro Cliente Feliz</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Escobedo 2024.</p>
+    </footer>
+
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Fetch clientes from database and populate select dropdown
+        fetch('get_clients.php')
+        .then(response => response.json())
+        .then(data => {
+            const clientesSelect = document.getElementById('clientes');
+            data.forEach(cliente => {
+                const option = document.createElement('option');
+                option.value = cliente.no_cliente;
+                option.textContent = cliente.nombre;
+                clientesSelect.appendChild(option);
+            });
+        });
+    });
+    </script>
+</body>
+</html>

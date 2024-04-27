@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Pago</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        .cliente-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .cliente-info p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirmar Pago</h2>
+        <form id="searchForm">
+            <label for="clienteNo">No. de Cliente:</label>
+            <p>Esta en la etiqueta de tu router/modem</p>
+            <input type="text" id="clienteNo" name="clienteNo" required>
+            <button type="submit">Buscar Cliente</button>
+        </form>
+        <div id="clienteInfo" class="cliente-info"></div>
+        <div id="reciboForm" style="display: none;">
+            <h3>Registrar Recibo</h3>
+            <form id="pagoForm">
+                <label for="noRecibo">No. de Recibo:</label>
+                <p>Es el no que aparece en el recibo que te dieron al pagar</p>
+                <input type="text" id="noRecibo" name="noRecibo" required>
+                <input type="hidden" id="clienteNoHidden" name="clienteNoHidden">
+                <button type="submit">Confirmar Pago</button>
+            </form>
+        </div>
+        <footer>&copy; 2024 Richard Escobedo. Todos los derechos reservados.</footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+        </div>
+        <div class="header-info">
+        </div>
+    </header>
+    <div class="container">
+        <form id="searchForm">
+            <label for="clientes">Selecciona un cliente:</label>
+            <!-- Aquí se insertará la lista desplegable de clientes -->
+            <button type="submit">Buscar</button>
+        </form>
+        <div id="resultado"></div> <!-- Aquí se mostrará el resultado de la búsqueda -->
+    </div>
+    <script src="script.js"></script> <!-- Importa el archivo JavaScript -->
+    <script>
+    // Obtener clientes y enviar al PHP encargado de generar el comprobante
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('get_clients.php')
+        .then(response => response.json())
+        .then(data => {
+            const clientesSelect = document.createElement('select');
+            clientesSelect.id = 'clientes';
+            clientesSelect.name = 'clientes';
+            data.forEach(cliente => {
+                const option = document.createElement('option');
+                option.value = cliente.no_cliente;
+                option.textContent = cliente.nombre;
+                clientesSelect.appendChild(option);
+            });
+            const searchForm = document.getElementById('searchForm');
+            searchForm.insertBefore(clientesSelect, searchForm.lastElementChild);
+
+            searchForm.addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+
+                var formData = new FormData(this);
+
+                fetch('buscar_cliente.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("resultado").innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+    </script>
+</body>
+</html>

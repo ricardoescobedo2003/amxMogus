@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmar Pago</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Confirmar Pago</h1>
+    <form id="paymentForm">
+      <div class="form-group">
+        <label for="nombre">Nombre del Cliente:</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="no_recibo">No. Recibo:</label>
+        <input type="text" id="no_recibo" name="no_recibo" required>
+      </div>
+      <button type="button" onclick="confirmarPago()">Confirmar</button>
+    </form>
+    <div id="resultado"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

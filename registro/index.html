@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Cliente</title>
+    <link rel="stylesheet" href="/css/stylesRegistro.css">
+    <link rel="stylesheet" href="/css/stylesConsulta.css">
+    <style>
+        nav {
+            background-color: blue;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px;
+            }
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/admin/index.html" onclick="inicio()">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="header"></div>
+    <div class="container">
+        <h2>Formulario de Cliente</h2>
+        <p>Ingresa los datos en los campos para guardar el cliente</p>
+        <form id="clienteForm">
+            <label for="idc">No del Cliente:</label>
+            <input type="number" id="idc" name="idc" required placeholder="Ej 12">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej Ricardo Escobedo" oninput="capitalizarNombre()">
+
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" required placeholder="Ej Joaquin Amaro">
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required placeholder="Ej 4981442266">
+
+            <label for="localidad">Localidad:</label>
+            <select id="localidad" name="localidad" required>
+                <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+            </select>
+
+            <label for="fechaInstalacion">Fecha de Instalación:</label>
+            <input type="date" id="fechaInstalacion" name="fechaInstalacion" required>
+
+            <label for="equipos">Equipo Utilizado:</label>
+            <select id="equipos" name="equipos" required>
+                <option value="Router">Router</option>
+                <option value="Modem">Módem</option>
+                <option value="Antena">Antena</option>
+                <option value="Switch">Switch</option>
+                <option value="Access Point">Punto de Acceso</option>
+                <option value="Repetidor Wi-Fi">Repetidor Wi-Fi</option>
+                <option value="ONT (Terminal de Red Óptica)">ONT (Terminal de Red Óptica)</option>
+                <option value="Antena y Router">Antena y Router</option>
+            </select>
+
+            <label for="paquete">Paquete:</label>
+            <select id="paquete" name="paquete" required>
+            </select>
+ 
+            <label for="mensualidad">Mensualidad</label>
+            <input type="number" id="mensualidad" name="mensualidad" required placeholder="Ej 450">
+            <label for="ip">IP:</label>
+            <input type="text" id="ip" name="ip" required placeholder="Es la IP que asigno nuestra AP al cliente ej 122.122.125.86">
+    
+            <label for="comentarios">Comentarios:</label>
+            <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+
+            <button type="button" onclick="guardarCliente()">Guardar</button>
+        </form>
+    </div>
+    <script>
+        // Función para cargar las localidades desde el servidor y rellenar la lista desplegable
+        window.onload = function() {
+            cargarPaquetes();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Parsear la respuesta JSON
+                    var localidades = JSON.parse(this.responseText);
+                    // Obtener el elemento select
+                    var selectLocalidad = document.getElementById("localidad");
+                    // Rellenar el select con las localidades
+                    localidades.forEach(function(localidad) {
+                        var option = document.createElement("option");
+                        option.text = localidad;
+                        option.value = localidad;
+                        selectLocalidad.appendChild(option);
+                    });
+                }
+            };
+            // Hacer una solicitud GET al servidor para obtener las localidades
+            xmlhttp.open("GET", "get_localidades.php", true);
+            xmlhttp.send();
+
+            // Obtener la fecha actual y asignarla al campo de fecha
+            var fechaActual = new Date().toISOString().slice(0, 10);
+            document.getElementById("fechaInstalacion").value = fechaActual;
+        };
+
+        function capitalizarNombre() {
+            var inputNombre = document.getElementById('nombre');
+            var nombre = inputNombre.value.toLowerCase().replace(/\b(\w)/g, function(s) { return s.toUpperCase(); });
+            inputNombre.value = nombre;
+        }
+    </script>
+</body>
+
+</html>

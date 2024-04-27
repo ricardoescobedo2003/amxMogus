@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Búsqueda de Cliente</h2>
+        <form id="searchForm">
+            <label for="no_cliente">No. Cliente:</label>
+            <input type="text" id="no_cliente" name="no_cliente" required>
+            <button type="button" onclick="buscarCliente()">Buscar</button>
+        </form>
+        <div id="clienteInfo" style="display: none;">
+            <p><strong>Nombre:</strong> <span id="nombre_cliente"></span></p>
+            <p><strong>IP:</strong> <span id="ip_cliente"></span></p>
+            <div id="acciones">
+                <button onclick="reiniciarCliente()">Reiniciar</button>
+                <button onclick="limitarTrafico()">Bloquear</button>
+                <button onclick="desbloquearCliente()">Desbloquear</button>
+                <button onclick="verEstadisticas()">Estadísticas</button>
+            </div>
+        </div>
+        <div id="mensaje"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

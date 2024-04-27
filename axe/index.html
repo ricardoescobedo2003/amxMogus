@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear/Editar Usuarios</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .options a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            background-color: #555;
+        }
+
+        .options a:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Menú de Herramientas</h1>
+        <div class="options">
+            <a href="/manager/index.html">Consultar Usuarios</a>
+            <a href="/comunidades/index.html">Consultar Comunidades</a>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Crear/Editar Usuarios</h2>
+        <!-- Formulario para crear/editar usuarios -->
+        <form id="userForm">
+            <!-- Campos para nombre de usuario y contraseña -->
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Guardar</button>
+        </form>
+        <div id="userMessage"></div> <!-- Div para mostrar mensaje de respuesta -->
+
+        <hr> <!-- Línea horizontal para separar los formularios -->
+            <!-- Nuevo campo para ingresar AP -->
+            <label for="ap">Access Point:</label>
+            <input type="text" id="ap" name="ap" required>
+
+            <button type="submit">Guardar</button>
+        </form>
+        <div id="userMessage"></div> <!-- Div para mostrar mensaje de respuesta -->
+        <hr> <!-- Línea horizontal para separar los formularios -->
+
+        <h2>Agregar Comunidad</h2>
+        <!-- Formulario para agregar comunidad -->
+        <form id="communityForm">
+            <label for="communityName">Nombre de la comunidad:</label>
+            <input type="text" id="communityName" name="communityName" required>
+            <button type="submit">Agregar Comunidad</button>
+        </form>
+        <div id="communityMessage"></div> <!-- Div para mostrar mensaje de respuesta -->
+
+        <hr> <!-- Línea horizontal para separar los formularios -->
+
+        <h2>Ingresar Paquete</h2>
+        <!-- Formulario para ingresar paquetes -->
+        <form id="packageForm">
+            <label for="packageName">Nombre del paquete:</label>
+            <input type="text" id="packageName" name="packageName" required>
+            <label for="packagePrice">Precio:</label>
+            <input type="number" id="packagePrice" name="packagePrice" required step="0.01">
+            <button type="submit">Agregar Paquete</button>
+        </form>
+        <div id="packageMessage"></div> <!-- Div para mostrar mensaje de respuesta -->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Escuchar el evento submit para el formulario de usuario
+            document.getElementById("userForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+                // Obtener datos del formulario
+                var formData = new FormData(this);
+                // Enviar datos mediante fetch
+                fetch("process_user.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar el mensaje de respuesta del servidor en el elemento con id "userMessage"
+                    document.getElementById("userMessage").innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Escuchar el evento submit para el formulario de comunidad
+            document.getElementById("communityForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+                // Obtener datos del formulario
+                var formData = new FormData(this);
+                // Enviar datos mediante fetch
+                fetch("process_community.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar el mensaje de respuesta del servidor en el elemento con id "communityMessage"
+                    document.getElementById("communityMessage").innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Escuchar el evento submit para el formulario de paquete
+            document.getElementById("packageForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+                // Obtener datos del formulario
+                var formData = new FormData(this);
+                // Enviar datos mediante fetch
+                fetch("process_package.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Mostrar el mensaje de respuesta del servidor en el elemento con id "packageMessage"
+                    document.getElementById("packageMessage").innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>
